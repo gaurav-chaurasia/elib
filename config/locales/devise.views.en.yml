@@ -1,0 +1,76 @@
+# english example  
+# => config/locales/en.yml
+
+  devise:
+    confirmations:
+      new:
+        resend_confirmation_instructions: 'Resend confirmation instructions'
+        email: 'Email'
+    mailer:
+      confirmation_instructions:
+        welcome: 'Welcome'
+        you_can_confirm: 'You can confirm your account email through the link below'
+        #You can confirm your account email through the link below
+        confirm_my_account: 'Confirm my account'
+      reset_password_instructions:
+        hello: 'Hello'
+        someone_has_requested: 'Someone has requested a link to change your password, and you can do this through the link below.'
+        #Someone has requested a link to change your password, and you can do this through the link below.
+        change_my_password: 'Change my password'
+        if_you_did_not_request: 'If you did not request this, please ignore this email.'
+        #If you did not request this, please ignore this email.
+        your_password_will_not_change: 'Your password will not change until you access the link above and create a new one.'
+        # Your password will not change until you access the link above and create a new one.
+      unlock_instructions:
+        hello: 'Hello'
+        you_account_has_been_locked: 'Your account has been locked due to an excessive amount of unsuccessful sign in attempts.'
+        #Your account has been locked due to an excessive amount of unsuccessful sign in attempts.
+        click_the_link_below: 'Click the link below to unlock your account'
+        unlock_my_account: 'Unlock my account'
+    passwords:
+      new:
+        forgot_your_password: "Forgot your password"
+        send_me_reset_password_instructions: "Send me reset password instructions"
+        email: "Email"
+      edit:
+        change_your_password: "Change your password"
+        new_password: "New password"
+        confirm_new_password: "Confirm new password"
+        change_my_password: "Change my password"  
+    registrations:
+      edit:
+        edit: "Edit"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        current_password: "Current password"
+        cancel_my_account: "Cancel my account"
+        update: "Update"
+        back: "Back"
+        are_you_sure: "Are you sure?"
+        unhappy: "Unhappy?"
+        we_need_password_to_confirm: "(we need your current password to confirm your changes)"
+        leave_blank_if_no_change: "(leave blank if you don't want to change it)"
+      new:
+        sign_up: "Sign up"
+        email: "Email"
+        password: 'Password'
+        password_confirmation: "Password confirmation"
+    sessions:
+      new:
+        sign_in: 'Sign in'
+        email: 'Email'
+        password: 'Password'
+        remember_me: 'Remember me'
+    shared:
+      links:
+        forgot_your_password: "Forgot your password?"
+        did_not_receive_confirm_instructions: "Didn't receive confirm instructions?"
+        did_not_receive_unlock_instructions: "Did not receive unlock instructions?"
+        sign_in_with: "Sign in with"
+        sign_in: "Sign in"
+        sign_up: "Sign up" 
+    unlocks:
+      new:
+        resend_unlock_instructions: "Resend unlock instructions"
+        email: 'Email'

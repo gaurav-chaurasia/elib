@@ -1,0 +1,30 @@
+<div class="navbar navbar-default navbar-static-top" style="margin-bottom:0px;">
+    <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <%= link_to 'Elib', root_path, class:"navbar-brand" %>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav">
+                <li><%= link_to "Books", books_path  %></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <% if user_signed_in? %>
+                    <li>
+                        <a href="#" data-toggle="dropdown"><i class="fa fa-user"></i>  <%= current_user.full_name.present? ? current_user.full_name : current_user.email %></a>
+                    </li>
+                    <li><%= link_to 'Add books', new_book_path, id:"droplist" %></li>
+                    <li><%= link_to 'Edit user', edit_user_registration_path(current_user), id:"droplist" %></li>
+                    <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
+                <li><%= link_to 'Log out', destroy_user_session_path,method: :delete %></li>
+                <% else %>
+                <li><%= link_to 'Log In', new_user_session_path %></li>
+                <li><%= link_to 'Sign Up', new_user_registration_path, style:"padding: 1.5rem 4rem" %></li>
+                <% end %>
+            </ul>
+        </div>
+        
+    </div>
+</div>

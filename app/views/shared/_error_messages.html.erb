@@ -1,0 +1,15 @@
+<% if resource.errors.any? %>    
+    <style>
+        .alert {
+            padding-left: 20px !important;
+            border-radius: 5px !important;
+        }
+        .close {
+            margin-right: 0px !important;
+        }
+        /*
+            temp fix
+        **/
+    </style>
+    <%= bootstrap_devise_error_messages! %>  
+<% end %>
