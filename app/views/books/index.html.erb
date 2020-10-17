@@ -42,12 +42,17 @@
         
         <p>
           <%= link_to 'show', book_path(book), class:"btn btn-sm btn-primary" %>
-          <%= link_to 'request', req_path(:book_id => book.id), method: :post, class:"btn btn-sm btn-default " %>
+          <%if user_signed_in? %>
+            <% if current_user.admin %>
+              <%= link_to 'All request', requests_path(:book_id => book.id), class:"btn btn-sm btn-default " %>
+            <% else %>
+              <%= link_to 'request', req_path(:book_id => book.id), method: :post, class:"btn btn-sm btn-default " %>
+            <% end %>
+          <% end %>
           <button class="btn btn-sm bt  n-success" type="button">
             Quantity <span class="badge"> <%= book.quantity %> </span>
           </button> 
         </p>
-        <%= link_to 'All request', requests_path(:book_id => book.id)%>
         <small>    
             added to librery: <%= time_ago_in_words(book.created_at)%> ago
         </small>

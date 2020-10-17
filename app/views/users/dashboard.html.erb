@@ -1,0 +1,18 @@
+<div class="container" style="padding:50px 0;">
+    
+    <div class="col-lg-3">
+        <div class="well sidebar-nav">
+        <h3 class="center"><%= @user.full_name %></h3>
+        <ul class="nav nav-list">
+            <li></li>
+            <hr>
+            <li><%= link_to 'Edit user', edit_user_registration_path(current_user), id:"droplist" %></li>
+            <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
+        </ul>
+        </div>
+    </div>
+    
+    <div class= "col-xs-12 col-md-7 col-lg-9">
+       
+    </div>
+</div>

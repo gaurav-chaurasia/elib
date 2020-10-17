@@ -1,0 +1,111 @@
+<div class="container" style="padding:50px 0;">
+    
+    <div class="col-lg-3">
+        <div class="well sidebar-nav">
+        <h3 class="center"><%= @user.full_name %></h3>
+        <ul class="nav nav-list">
+            <li><a onclick="openCity(event, 'London')">Pending Requests</a></li>
+            <li><a onclick="openCity(event, 'Paris')">Approved Requests</a></li>
+            <li><a onclick="openCity(event, 'Tokyo')">Rejected Requests</a></li>
+            <hr>
+            <li><%= link_to 'Add books', new_book_path %></li>
+            <hr>
+            <li><%= link_to 'Edit user', edit_user_registration_path(current_user), id:"droplist" %></li>
+            <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
+        </ul>
+        </div>
+    </div>
+    
+    <div class= "col-xs-12 col-md-7 col-lg-9">
+        <div id="London" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>Book title</th>
+                    <th>User Contact</th>
+                    <th>Requested At</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.status == 'pending'%>
+                        <tr>
+                            <td><strong> <%= count = count + 1 %> </strong></td>
+                            <td><%= request.user.full_name%></td>
+                            <td><%= request.book.title %></td>
+                            <td><%= request.user.contact_number %></td>
+                            <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
+                            <td><%= request.status %></td>
+                            <td>
+                                <%= link_to approve_path(request), method: :put do %>
+                                    Approve
+                                <% end %>
+                                |
+                                <%= link_to reject_path(request), method: :put do %>
+                                    Rejecte
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+
+        <div id="Paris" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>Book title</th>
+                    <th>User Contact</th>
+                    <th>Requested At</th>
+                    <th>status</th>
+                    <th></th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.status == 'approved'%>
+                        <tr>
+                            <td><strong> <%= count = count + 1 %> </strong></td>
+                            <td><%= request.user.full_name%></td>
+                            <td><%= request.book.title %></td>
+                            <td><%= request.user.contact_number %></td>
+                            <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
+                            <td><%= request.status %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+
+        <div id="Tokyo" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>Book title</th>
+                    <th>User Contact</th>
+                    <th>Requested At</th>
+                    <th>status</th>
+                    <th></th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.status == 'rejected'%>
+                        <tr>
+                            <td><strong> <%= count = count + 1 %> </strong></td>
+                            <td><%= request.user.full_name%></td>
+                            <td><%= request.book.title %></td>
+                            <td><%= request.user.contact_number %></td>
+                            <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
+                            <td><%= request.status %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+    </div>
+</div>
