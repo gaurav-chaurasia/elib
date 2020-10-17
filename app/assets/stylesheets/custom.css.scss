@@ -1,18 +1,65 @@
 @import "font-awesome";
 
-.center {
-  text-align: center;
-}
-.no-padding {
-  padding: 0 !important;
-}
-.left-padding {
-  padding-left: 15px !important;
-}
 .alert {
   padding-left: 100px !important;
   border-radius: 0px !important;
 }
 .close {
   margin-right: 100px !important;
+}
+
+.center {
+  text-align: center;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+.left-padding {
+  padding-left: 15px !important;
+}
+
+.no-image-massage {
+  margin: 0rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*flash*/
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+  text-align: left;
+}
+
+.alert-alert {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+  text-align: left;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+  text-align: left;
+}
+
+.alert-notice {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+  text-align: left;
+}
+.home-page-touchup {
+  height: 55rem;
+  margin: 1rem 1rem;
+  padding: 0rem;
+}
+.home-page-touchup:hover {
+  box-shadow: 0px 0px 30px 0.1px #d4d4d4;
 }

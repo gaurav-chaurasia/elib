@@ -12,17 +12,15 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <![endif]-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
+    <![endif]-->
   </head>
   <body>
     <%= render 'layouts/navigation'%>
     <%= bootstrap_flash %>
     
-    <div class="container">
-      <%= yield %>
-    </div> <!-- /container -->
-
+    <%= yield %>
+    
     <footer class="container">
       <p>&copy; elib 2020</p>
     </footer>

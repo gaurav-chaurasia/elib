@@ -1,30 +1,58 @@
 <!--
 <p id="notice"><%= notice %></p>
 -->
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+<div class="container">
+  <div class="row thumbnail" style="padding: 0px; margin-top:75px">
+      <div class ="col-xs-12 col-md-7 "style="padding: 0px;">
+          <% if @book.images.attached? %>
+            <div style="display:flex; overflow: auto;">
+              <%(0...@book.images.count).each do |image| %>
+                <%= image_tag(@book.images[image], style: "width: 100%; height:40rem")%>
+              <% end %>
+            </div>
+          <% else %>
+              <div class ="col-xs-12 col-md-4 "style= "width:100%; height:40rem; background-color:#f4f4f4">
+                  <div class="no-image-massage"> 
+                      No Image Available
+                  </div>
+              </div>
+          <% end %>
+      </div>
+      <div class= "col-xs-12 col-md-5 ">
+          
+          <h3> ISBN: <%= @book.isbn %></h3>
+          <h3>TITLE: <%= @book.title %><h3>
+          <h4>Description</h4>
+          <p><%= @book.description%></p>
+          <br>
+          
+          <% if user_signed_in? && current_user.admin %>
+              <%= link_to 'Edit Details', edit_book_path(@book), class:"btn btn-sm btn-primary " %>
+              <%= link_to 'Delete book', book_path(@book), method: :delete, data:{confirm: "Are you sure?"}, class:"btn btn-sm btn-danger" %>
+            
+              <%= link_to 'Back', :back, class:"btn btn-sm btn-default " %>
+          <% end %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @book.description %>
-</p>
-
-<p>
-  <strong>Auther:</strong>
-  <%= @book.auther %>
-</p>
-
-<p>
-  <strong>Quantity:</strong>
-  <%= @book.quantity %>
-</p>
-
-<p>
-  <strong>Isbn:</strong>
-  <%= @book.isbn %>
-</p>
-
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+          <% if @book.user != current_user %>
+              <%= link_to 'Home', books_path, class:"btn btn-sm btn-success" %>
+              
+              <%= link_to 'Back', :back, class:"btn btn-sm btn-default " %>
+          <% end %>
+          
+          <button class="btn btn-sm bt  n-success" type="button">
+            Quantity <span class="badge"> <%= @book.quantity %> </span>
+          </button> 
+          <br>
+          <small>last updated: <%= time_ago_in_words(@book.updated_at) %> ago </small>
+          <small> 
+              <br>
+                  [ Auther:<strong> <%= @book.auther %> </strong> ]   
+              <br>     
+          </small>
+          <ul class="pager">
+            <li class="previous"><a href="#">Previous</a></li>
+            <li class="next"><a href="#">Next</a></li>
+          </ul>
+      </div>
+  </div>
+</div>
