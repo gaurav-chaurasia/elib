@@ -1,0 +1,36 @@
+<div class="container" style="padding:50px 0;">
+    <div class= "col-xs-12 col-md-7 col-lg-9">
+        <table class="table table-striped">
+            <tr>
+                <% count = 0 %>
+                <th>#</th>
+                <th>User Name</th>
+                <th>Book title</th>
+                <th>User Contact</th>
+                <th>Requested At</th>
+                <th>Request Status</th>
+            </tr>
+            <% @requests.each do |request| %>
+                <tr>
+                    <td><strong> <%= count = count + 1 %> </strong></td>
+                    <td><%= request.user.full_name%></td>
+                    <td><%= request.book.title %></td>
+                    <td><%= request.user.contact_number %></td>
+                    <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
+                    <td><%= request.status %></td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+    <div class="col-lg-3">
+        <div class="well sidebar-nav">
+        <h3>All user requested</h3>
+        <ul class="nav nav-list">
+            <% @requests.each do |request| %>
+                <li><%= request.user.full_name %></li>
+            <% end %>
+        </ul>
+        </div><!--/.well -->
+    </div><!--/span-->
+
+</div>

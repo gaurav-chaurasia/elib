@@ -1,17 +1,18 @@
 class RequestsController < ApplicationController 
-    before_action :authenticate_user!
+    before_action :authenticate_user! 
     
     # Requests: GET
-    #show all request assosiated to a specific book/:book_id/requests
+    # show all request assosiated to a specific book/:book_id/requests
     def index 
-        @requests = Request.where(books_id: params[:book_id])
+        @requests = Request.where(book_id: params[:book_id])
     end    
     
-
+    # Requests: POST
+    # create request for any specific /requests/:book_id
     def create
-        request = Book.createRequest(params[:book_id])
+        request = Request.createRequest(current_user.id, params[:book_id])
         respond_to do |format|
-            if request
+            if request != nil
                 format.html { redirect_to root_path, notice: 'Request was successfully created.' }
             else
                 format.html { redirect_to root_path, notice: 'Something went wrong request not created!' } 
@@ -23,6 +24,6 @@ class RequestsController < ApplicationController
     private
         
     def request_params
-        params.require(:request).permit(:book_id, :id)
+        params.require(:request).permit(:book_id, :status)
     end
 end

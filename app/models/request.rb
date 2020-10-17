@@ -4,11 +4,11 @@ class Request < ApplicationRecord
 
     enum status: [:pending, :approved, :rejected]
 
-    def self.createRequest(book_id)
+    def self.createRequest(user_id, book_id)
         book = Book.find(book_id)
         if book && book.quantity > 0
             book.quantity -= 1
-            request = Request.new(user: current_user, book: book)
+            request = Request.new(user_id: user_id, book_id: book_id)
             if book.save and request.save
                 request
             end
