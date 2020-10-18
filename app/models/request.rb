@@ -3,6 +3,8 @@ class Request < ApplicationRecord
     belongs_to :book
 
     # enum status: [:pending, :approved, :rejected]
+    ALL_STATES = %w[pending approved rejected done].freeze
+    enum status: ALL_STATES.zip(ALL_STATES).to_h
 
     def self.createRequest(user_id, book_id)
         book = Book.find(book_id)
