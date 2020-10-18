@@ -1,23 +1,25 @@
-<div class="container" style="padding:50px 0;">
-    
-    <div class="col-lg-3">
-        <div class="well sidebar-nav">
-        <h3 class="center"><%= @user.full_name %></h3>
+<div>
+    <div class="col-lg-2 admin-sidebar">
+        <div class=" sidebar-nav">
         <ul class="nav nav-list">
-            <li><a onclick="openCity(event, 'London')">Pending Requests</a></li>
-            <li><a onclick="openCity(event, 'Paris')">Approved Requests</a></li>
-            <li><a onclick="openCity(event, 'Tokyo')">Rejected Requests</a></li>
+            <li><a onclick="showRequest(event, 'all')">All Requests</a></li>
+            <li><a onclick="showRequest(event, 'pending')">Pending Requests</a></li>
+            <li><a onclick="showRequest(event, 'approved')">Approved Requests</a></li>
+            <li><a onclick="showRequest(event, 'rejected')">Rejected Requests</a></li>
             <hr>
-            <li><%= link_to 'Add books', new_book_path %></li>
+            <li><%= link_to 'Upload books', new_book_path %></li>
+            <li><%= link_to 'See books', '#' %></li>
             <hr>
-            <li><%= link_to 'Edit user', edit_user_registration_path(current_user), id:"droplist" %></li>
+            <li><%= link_to 'Edit user details', edit_user_registration_path(current_user), id:"droplist" %></li>
             <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
         </ul>
         </div>
     </div>
     
-    <div class= "col-xs-12 col-md-7 col-lg-9">
-        <div id="London" class="tabcontent">
+    <div class= "col-lg-8 col-lg-offset-3 container">
+        <h3 class="center">Dashboard</h3>
+
+        <div id="all" class="tabcontent">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -27,25 +29,68 @@
                     <th>User Contact</th>
                     <th>Requested At</th>
                     <th>Status</th>
-                    <th>Action</th>
-                    <th></th>
+                    <th>Approve</th>
+                    <th>Rejecte</th>
                 </tr>
                 <% @requests.each do |request| %>
-                    <% if request.status == 'pending'%>
+                    <tr>
+                        <td><strong> <%= count = count + 1 %> </strong></td>
+                        <td><%= request.user.full_name%></td>
+                        <td><%= request.book.title %></td>
+                        <td><%= request.user.contact_number %></td>
+                        <td><%= datetime_format(request.created_at)%></td>
+                        <% if request.approved? %>
+                            <td class="alert-success"><%= request.status %></td>
+                        <% elsif request.rejected? %>
+                            <td class="alert-danger"><%= request.status %></td>
+                        <% else %>
+                            <td class="alert-info"><%= request.status %></td>
+                        <% end %>
+                        <td class="alert-success"style="text-align: center" >
+                            <%= link_to approve_path(request), method: :put do %>
+                                <i class="fa fa-check alert-success" ></i>
+                            <% end %>
+                        </td>
+                        <td class="alert-danger" style="text-align: center">
+                            <%= link_to reject_path(request), method: :put do %>
+                                <i class="fa fa-times alert-danger"></i>
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        
+        <div id="pending" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>Book title</th>
+                    <th>User Contact</th>
+                    <th>Requested At</th>
+                    <th>Status</th>
+                    <th>Approve</th>
+                    <th>Rejecte</th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.pending? %>
                         <tr>
                             <td><strong> <%= count = count + 1 %> </strong></td>
                             <td><%= request.user.full_name%></td>
                             <td><%= request.book.title %></td>
                             <td><%= request.user.contact_number %></td>
-                            <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
-                            <td><%= request.status %></td>
-                            <td>
+                            <td><%= datetime_format(request.created_at) %></td>
+                            <td class="alert-info"><%= request.status %></td>
+                            <td class="alert-success" style="text-align: center">
                                 <%= link_to approve_path(request), method: :put do %>
-                                    Approve
+                                    <i class="fa fa-check alert-success"></i>
                                 <% end %>
-                                |
+                            </td>
+                            <td class="alert-danger" style="text-align: center">
                                 <%= link_to reject_path(request), method: :put do %>
-                                    Rejecte
+                                    <i class="fa fa-times alert-danger"></i>
                                 <% end %>
                             </td>
                         </tr>
@@ -54,7 +99,7 @@
             </table>
         </div>
 
-        <div id="Paris" class="tabcontent">
+        <div id="approved" class="tabcontent">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -64,24 +109,23 @@
                     <th>User Contact</th>
                     <th>Requested At</th>
                     <th>status</th>
-                    <th></th>
                 </tr>
                 <% @requests.each do |request| %>
-                    <% if request.status == 'approved'%>
+                    <% if request.approved? %>
                         <tr>
                             <td><strong> <%= count = count + 1 %> </strong></td>
                             <td><%= request.user.full_name%></td>
                             <td><%= request.book.title %></td>
                             <td><%= request.user.contact_number %></td>
-                            <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
-                            <td><%= request.status %></td>
+                            <td><%= datetime_format(request.created_at) %></td>
+                            <td class="alert-success"><%= request.status %></td>
                         </tr>
                     <% end %>
                 <% end %>
             </table>
         </div>
 
-        <div id="Tokyo" class="tabcontent">
+        <div id="rejected" class="tabcontent">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -91,17 +135,16 @@
                     <th>User Contact</th>
                     <th>Requested At</th>
                     <th>status</th>
-                    <th></th>
                 </tr>
                 <% @requests.each do |request| %>
-                    <% if request.status == 'rejected'%>
+                    <% if request.rejected? %>
                         <tr>
                             <td><strong> <%= count = count + 1 %> </strong></td>
                             <td><%= request.user.full_name%></td>
                             <td><%= request.book.title %></td>
                             <td><%= request.user.contact_number %></td>
-                            <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
-                            <td><%= request.status %></td>
+                            <td><%= datetime_format(request.created_at) %></td>
+                            <td class="alert-danger"><%= request.status %></td>
                         </tr>
                     <% end %>
                 <% end %>

@@ -37,7 +37,7 @@
         <div class="form-group center"style="margin-top:3rem;">
           <%= form.submit class: "btn btn-primary btn-md"%> 
           <%= link_to 'Show', @book || books_path,class: "btn btn-default btn-md" %>
-          <%= link_to 'Back', books_path || books_path, class: "btn btn-default btn-md"%>
+          <%= link_to 'Back', :back || books_path, class: "btn btn-default btn-md"%>
         </div>
     <% end %>
   </div>

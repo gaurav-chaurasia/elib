@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
-    before_action
+    before_action :authenticate_admin, except: [:dashboard] 
     before_action :set_user, only: [:show, :dashboard, :admin]
+    
     # Get a list of all users
     # Requests: GET
     def index
@@ -13,12 +14,16 @@ class UsersController < ApplicationController
     def show
     end
 
+    # Get user dashboard
+    # Requests: GET
     def dashboard
-        @requests = Request.where(user: current_user)
+        @requests = Request.where(user: current_user).order(updaed_at: :asc)
     end
 
+    # Get admin user dashboard
+    # Requests: GET
     def admin
-        @requests = Request.all
+        @requests = Request.all.order(updaed_at: :asc)
     end
 
     private

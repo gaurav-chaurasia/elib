@@ -17,7 +17,7 @@
 //= require turbolinks
 //= require_tree .
 
-function openCity(evt, cityName) {
+function showRequest(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
   

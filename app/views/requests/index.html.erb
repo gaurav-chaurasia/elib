@@ -17,7 +17,13 @@
                     <td><%= request.book.title %></td>
                     <td><%= request.user.contact_number %></td>
                     <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
-                    <td><%= request.status %></td>
+                    <% if request.status == 'approved'%>
+                        <td class="alert-success"><%= request.status %></td>
+                    <% elsif request.status == 'rejected'%>
+                        <td class="alert-danger"><%= request.status %></td>
+                    <% else %>
+                        <td class="alert-info"><%= request.status %></td>
+                    <% end %>
                 </tr>
             <% end %>
         </table>

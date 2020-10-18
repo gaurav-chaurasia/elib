@@ -15,6 +15,6 @@ class Book < ApplicationRecord
     end
 
     def self.getPopularBooks
-        Book.order(updated_at: :desc).limit(10)
+        Book.order(created_at: :desc).limit(10)
     end
 end

@@ -35,7 +35,7 @@ class BooksController < ApplicationController
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
       else
-        format.html { render :new, notice: 'isbn is not unique' }
+        format.html { render :new, alert: 'Opps!, somthing went wrong try again' }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
@@ -46,9 +46,11 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+        flash[:info] = 'Book was successfully updated.'
+        format.html { redirect_to @book }
         format.json { render :show, status: :ok, location: @book }
       else
+        flash[:warning] = 'Opps!, somthing went wrong.'
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
