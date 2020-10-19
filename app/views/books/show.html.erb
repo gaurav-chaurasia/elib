@@ -5,17 +5,38 @@
   <div class="row thumbnail" style="padding: 0px; margin-top:75px">
       <div class ="col-xs-12 col-md-7 "style="padding: 0px;">
           <% if @book.images.attached? %>
-            <div style="display:flex; overflow: auto;">
-              <%(0...@book.images.count).each do |image| %>
-                <%= image_tag(@book.images[image], style: "width: 100%; height:40rem")%>
-              <% end %>
-            </div>
-          <% else %>
-              <div class ="col-xs-12 col-md-4 "style= "width:100%; height:40rem; background-color:#f4f4f4">
-                  <div class="no-image-massage"> 
-                      No Image Available
+            <% if @book.images.count > 1 %>
+                <div id="<%= @book.id %>1" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="item active">
+                      <%= image_tag(@book.images.first, style:"height:40rem; width:100%")%>
+                    </div>
+                    <% (1...@book.images.count).each do |image| %>
+                      <div class="item">
+                        <%= image_tag(@book.images[image], style:"height:40rem; width:100%")%>
+                      </div>
+                    <% end %>
                   </div>
+                  
+                  <a class="left carousel-control" href="#<%= @book.id %>1" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                  </a>
+                  <a class="right carousel-control" href="#<%= @book.id %>1" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
               </div>
+
+            <% else %>
+              <%(0...@book.images.count).each do |image| %>
+                <%= image_tag(@book.images[image], style:"height:40rem; width:100%")%>
+              <% end %>
+            <% end %>
+          <% else %>
+            <div class ="col-xs-12 col-md-12 "style= "width:100%; height:40rem; background-color:#f4f4f4">
+                <div class="no-image-massage"> 
+                    No Image Available
+                </div>
+            </div>
           <% end %>
       </div>
       <div class= "col-xs-12 col-md-5 ">

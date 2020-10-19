@@ -9,24 +9,51 @@
   <div class="col-sm-6 col-md-4"style="padding:0rem;">
     <div class="thumbnail home-page-touchup">
       
+      <!--carosel--->
       <% if book.images.attached? %>
-        <div style="display:flex; overflow: auto; height:24.1rem;">
+        <% if book.images.count > 1 %>
+
+            <div id="<%= book.id %>" class="carousel slide" data-ride="carousel">
+
+              <div class="carousel-inner">
+
+                <div class="item active">
+                  <%= image_tag(book.images.first, style:"height:24.1rem; width:100%")%>
+                </div>
+                <% (1...book.images.count).each do |image| %>
+                  <div class="item">
+                    <%= image_tag(book.images[image], style:"height:24.1rem; width:100%")%>
+                  </div>
+                <% end %>
+              </div>
+              
+              <a class="left carousel-control" href="#<%= book.id %>" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a class="right carousel-control" href="#<%= book.id %>" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+          </div>
+
+        <% else %>
           <%(0...book.images.count).each do |image| %>
             <%= image_tag(book.images[image], style:"height:24.1rem; width:100%")%>
           <% end %>
-        </div>
+        <% end %>
       <% else %>
-          <div class ="col-xs-12 col-md-12 "style= "width:100%; height:24.1rem; background-color:#f4f4f4">
-              <div class="no-image-massage"> 
-                  No Image Available
-              </div>
-          </div>
+        <div class ="col-xs-12 col-md-12 "style= "width:100%; height:24.1rem; background-color:#f4f4f4">
+            <div class="no-image-massage"> 
+                No Image Available
+            </div>
+        </div>
       <% end %>
+      
       
       <div class="caption">
         <h4>
           <small>TITLE:</small> <%= book.title %><br>
           <small>ISBN:</small> <%= book.isbn %> <br> 
+          <small>AUTHER:</small> <%= book.auther %> 
         </h4>
         <p><%= truncate(book.description, :ommision => ".... Read More", :length => 150) %></p>
         
@@ -57,22 +84,46 @@
   <div class="container">
     <h3>Letest books</h3>
     <div style="width: 100%; height:300px; overflow-x: auto; overflow-y: hidden;">
-        <div style="width: 3500px; display:flex;">
+        <div style="width: 4000px; display:flex;">
           <% @popular_books.each do |book| %>
               <div class="thumbnail col-lg-12 home-page-touchup" style="height:100%;"> 
                 <div class="col-md-6" style="padding:0;">
                   <% if book.images.attached? %>
-                    <div style="display:flex; overflow-x: auto; overflow-y: hidden; height:24.1rem;">
+                    <% if book.images.count > 1 %>
+
+                        <div id="<%= book.id %>1" class="carousel slide" data-ride="carousel">
+
+                          <div class="carousel-inner">
+
+                            <div class="item active">
+                              <%= image_tag(book.images.first, style:"height:24.1rem; width:100%")%>
+                            </div>
+                            <% (1...book.images.count).each do |image| %>
+                              <div class="item">
+                                <%= image_tag(book.images[image], style:"height:24.1rem; width:100%")%>
+                              </div>
+                            <% end %>
+                          </div>
+                          
+                          <a class="left carousel-control" href="#<%= book.id %>1" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                          </a>
+                          <a class="right carousel-control" href="#<%= book.id %>1" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                          </a>
+                      </div>
+
+                    <% else %>
                       <%(0...book.images.count).each do |image| %>
                         <%= image_tag(book.images[image], style:"height:24.1rem; width:100%")%>
                       <% end %>
-                    </div>
+                    <% end %>
                   <% else %>
-                      <div class ="col-xs-12 col-md-12 "style= "width:100%; height:24.1rem; background-color:#f4f4f4">
-                          <div class="no-image-massage"> 
-                              No Image Available
-                          </div>
-                      </div>
+                    <div class ="col-xs-12 col-md-12 "style= "width:100%; height:24.1rem; background-color:#f4f4f4">
+                        <div class="no-image-massage"> 
+                            No Image Available
+                        </div>
+                    </div>
                   <% end %>
                 </div>
                 <div class="col-md-6">
