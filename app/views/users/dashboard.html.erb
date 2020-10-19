@@ -1,12 +1,15 @@
-<div class="container" style="padding:50px 0;">
+<div>
     
-    <div class="col-lg-3">
-        <div class="well sidebar-nav">
-        <h3 class="center"><%= @user.full_name %></h3>
+    <div class="col-lg-2 admin-sidebar">
+        <div class=" sidebar-nav">
         <ul class="nav nav-list">
-            <li></li>
+            <li><a onclick="showRequest(event, 'all')">My Books</a></li>
+            <li><a onclick="showRequest(event, 'rejected')">Returned Books</a></li>
             <hr>
-            <li><%= link_to 'Edit user', edit_user_registration_path(current_user), id:"droplist" %></li>
+            <li><a onclick="showRequest(event, 'pending')">Pending Requests</a></li>
+            <li><a onclick="showRequest(event, 'rejected')">Rejected Requests</a></li>
+            <hr>
+            <li><%= link_to 'Edit user details', edit_user_registration_path(current_user), id:"droplist" %></li>
             <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
         </ul>
         </div>

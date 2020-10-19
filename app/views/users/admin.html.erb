@@ -7,8 +7,8 @@
             <li><a onclick="showRequest(event, 'approved')">Approved Requests</a></li>
             <li><a onclick="showRequest(event, 'rejected')">Rejected Requests</a></li>
             <hr>
+            <li><a onclick="showRequest(event, 'books')">See books</a></li>
             <li><%= link_to 'Upload books', new_book_path %></li>
-            <li><%= link_to 'See books', '#' %></li>
             <hr>
             <li><%= link_to 'Edit user details', edit_user_registration_path(current_user), id:"droplist" %></li>
             <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
@@ -150,5 +150,40 @@
                 <% end %>
             </table>
         </div>
+
+        <div id="books" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>ISBN</th>
+                    <th>Book title</th>
+                    <th>Auther</th>
+                    <th>Quantity</th>
+                    <th>Users</th>
+                    <th>Edit</th>
+                </tr>
+                <% @books.each do |book| %>
+                    <tr>
+                        <td><strong> <%= count = count + 1 %> </strong></td>
+                        <td><%= book.isbn %></td>
+                        <td><%= book.title %></td>
+                        <td><%= book.auther %></td>
+                        <td><%= book.quantity %></td>
+                        <td>
+                            <%= link_to requests_path(book), class: "btn btn-default" do %>
+                                <i class="fa fa-users" ></i>
+                            <% end %>
+                        </td>
+                        <td>
+                            <%= link_to edit_book_path(book), class: "btn btn-default" do %>
+                                <i class="fa fa-pencil-square-o" ></i>
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+
     </div>
 </div>

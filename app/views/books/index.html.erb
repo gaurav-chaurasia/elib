@@ -2,6 +2,41 @@
 <p id="notice"><%= notice %></p>
 -->
 
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      <div class="item active">
+        <img src="https://www.brantfordlibrary.ca/en/resourcesGeneral/Homepage-Banner/Library-glass-word.jpg" style=" width:100%; height:30rem;background-size: auto;">
+        <div class="carousel-caption">
+          <h3>Best Ever E-LIBRARY</h3>
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" style="object-fit: cover;width:100%; height:30rem;">
+      </div>
+
+      <div class="item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRhct9ZGpOhO9eT4OeiCWgqTVxQbFg-obj3_w&usqp=CAU" style="width:100%; height:30rem; ">
+      </div>
+  
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    </a>
+  </div>
+
 <h1 class="center">Books</h1>
 
 <div class="container">
@@ -28,10 +63,10 @@
               </div>
               
               <a class="left carousel-control" href="#<%= book.id %>" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="fa fa-angle-left glyphicon-chevron-left"></span>
               </a>
               <a class="right carousel-control" href="#<%= book.id %>" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="fa fa-angle-right glyphicon-chevron-right"></span>
               </a>
           </div>
 
@@ -105,12 +140,8 @@
                             <% end %>
                           </div>
                           
-                          <a class="left carousel-control" href="#<%= book.id %>1" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                          </a>
-                          <a class="right carousel-control" href="#<%= book.id %>1" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                          </a>
+                          <a class="left carousel-control" href="#<%= book.id %>1" data-slide="prev"></a>
+                          <a class="right carousel-control" href="#<%= book.id %>1" data-slide="next"></a>
                       </div>
 
                     <% else %>
