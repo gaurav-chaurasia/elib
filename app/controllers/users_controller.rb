@@ -22,8 +22,10 @@ class UsersController < ApplicationController
 
     # Get admin user dashboard
     # Requests: GET
+    # any admin can change books detail or approve/reject request
     def admin
         @requests = Request.all.order(updaed_at: :asc)
+        @books = Book.all
     end
 
     private

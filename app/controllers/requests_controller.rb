@@ -9,14 +9,16 @@ class RequestsController < ApplicationController
     end    
     
     # Requests: POST
-    # create request for any specific /requests/:book_id
+    # create request for any specific book /requests/:book_id
     def create
-        request = Request.createRequest(current_user.id, params[:book_id])
+        request = Request.validateAndCreateRequest(current_user.id, params[:book_id])
         respond_to do |format|
             if request
                 format.html { redirect_to root_path, notice: 'Request was successfully created.' }
             else
-                format.html { redirect_to root_path, notice: 'Something went wrong request not created!' } 
+                flash[:warning] = ["Something went wrong request not created!"]
+                flash[:warning] << "You already have requested this book you request is in process"
+                format.html { redirect_to root_path } 
             end
         end
     end

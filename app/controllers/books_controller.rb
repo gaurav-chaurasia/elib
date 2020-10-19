@@ -7,7 +7,7 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.getValidBooks()
-    @popular_books = Book.getPopularBooks().getValidBooks()
+    @popular_books = Book.getPopularBooks().getValidBooks
   end
 
   # GET /books/1
