@@ -2,7 +2,13 @@
 
 > Note: All steps were performed using on Windows 10.
 
-- [Screen Shots](screenshot.md)
+- [Screen Shots]()
+
+  - [admin dashboard](readme/admin.md)
+  - [user dashboard](readme/user.md)
+  - [general](readme/general.md)
+
+- [Run Locally](readme/install.md)
 
 ### DONE THE INSTALLATIONS
 
@@ -19,11 +25,11 @@
         $ bundle install
 ```
 
-- Make migrations, Seed data into the database and Run the test server
+- Make migrations, Seed data into the database and Run the server
 
 ```
-        $ rake db:migrate
-        $ rake db:seed
+        $ rails db:migrate
+        $ rails db:seed
         $ rails server
 ```
 
@@ -42,22 +48,31 @@
 - Multiple Image upload capability
 - seperate dashboard for normal and admin user
 - "Active storage used for image storing feature"
-- show page for separate user and user can see their products _USER DASHBOARD_
-- description is for clarifying the books details
+- show page for separate user and user can see their all request _USER DASHBOARD_
+- admin can see all request, books, and can manage all these from _ADMIN DASHBOARD_
+- only admins can download all request in csv format from _ADMIN DASHBOARD_
 - admin can approve and reject request
 - admin dashboard has seperate tab for pending, approved, and rejected books
+- user can return any of his approved book
+- user can not make request for same book again and again if
+  - already approved
+  - already a pending request exists
+- if request is rejected he can make new request for same book again
 
 ## List of non-implemented/planned features,
 
-- User dashboard not complete
-- user can have their profile picture and some more details
+- after rejecting any request from admin any user can make request after certain time only for the book
+- admin can download request list in any format of his/her choise
+- User profile picture
+- make design it responsive
+- improve view (inline CSS)
 
 ## Bugs
 
-- User can make more than one request on same book
-
 > some links
 
+`https://stackoverflow.com/`  
+`https://www.youtube.com/`  
 `https://guides.rubyonrails.org/`  
 `https://github.com/twbs/bootstrap-sass`  
 `https://github.com/heartcombo/devise`  
