@@ -1,0 +1,15 @@
+<div class="row"style="width:60%; height: 30rem; margin-left:300px; margin-top:50px;">
+    <div>
+        <div class="col-md-4">
+            <%= image_tag(@user.image, style:"width:100%; height:100%; object-fit:auto; padding: 0") if @user.image.attached? %>
+        </div>
+        <div class="caption">
+            <p>Name:           <strong><%= @user.full_name %></strong></p>
+            <p>Contact Number: <strong><%= @user.contact_number%></strong></p>
+            <p>Email:          <strong><%= @user.email %></strong></p>
+            <p>Admission Date: <strong><%= datetime_format(@user.admission_date) %></strong></p>
+            <p>Address:        <strong><%= @user.address %></strong></p>
+        </div>
+    </div>
+  </div>
+</div>

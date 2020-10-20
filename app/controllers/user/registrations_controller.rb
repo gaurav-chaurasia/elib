@@ -9,6 +9,7 @@ class User::RegistrationsController < Devise::RegistrationsController
                                    :address,
                                    :admission_date,
                                    :email,
+                                   :image,
                                    :password,
                                    :password_confirmation)
     end
@@ -20,6 +21,7 @@ class User::RegistrationsController < Devise::RegistrationsController
                                    :address,
                                    :admission_date,
                                    :email,
+                                   :image,
                                    :password,
                                    :password_confirmation,
                                    :current_password)

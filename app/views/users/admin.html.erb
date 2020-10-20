@@ -12,6 +12,7 @@
             <li><%= link_to 'Upload books', new_book_path %></li>
             <li><a onclick="showRequest(event, 'returned')">Returned books</a></li>
             <hr>
+            <li><%= link_to 'Your Details', user_path(current_user) %></li>
             <li><%= link_to 'Edit user details', edit_user_registration_path(current_user), id:"droplist" %></li>
             <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
         </ul>

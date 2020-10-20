@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :books
+  has_one_attached :image
 
   validates :first_name, presence: true
   validates :admission_date, presence: true

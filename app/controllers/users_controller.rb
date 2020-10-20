@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
-    before_action :authenticate_admin, except: [:dashboard] 
+    before_action :authenticate_admin, except: [:show, :dashboard] 
     before_action :set_user, only: [:show, :dashboard, :admin]
     
     # Get a list of all users
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         @users = User.all
     end
 
-    # Get user dashboard
+    # Get user details
     # Requests: GET
     def show
     end
