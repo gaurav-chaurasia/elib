@@ -1,42 +1,46 @@
 <div class="container" style="padding:50px 0;">
-    <div class= "col-xs-12 col-md-7 col-lg-9">
         <table class="table table-striped">
             <tr>
                 <% count = 0 %>
                 <th>#</th>
-                <th>User Name</th>
                 <th>Book title</th>
+                <th>Book ISBN</th>
+                <th>Book auther</th>
+                <th>User Name</th>
                 <th>User Contact</th>
                 <th>Requested At</th>
-                <th>Request Status</th>
+                <th>Status</th>
+                <th>Approve</th>
+                <th>Requeste</th>
             </tr>
             <% @requests.each do |request| %>
                 <tr>
                     <td><strong> <%= count = count + 1 %> </strong></td>
-                    <td><%= request.user.full_name%></td>
                     <td><%= request.book.title %></td>
+                    <td><%= request.book.isbn %></td>
+                    <td><%= request.book.auther %></td>
+                    <td><%= request.user.full_name%></td>
                     <td><%= request.user.contact_number %></td>
                     <td><%= request.created_at.strftime("%B %d, %Y | %l:%M %p")%></td>
-                    <% if request.status == 'approved'%>
+                    <% if request.approved? %>
                         <td class="alert-success"><%= request.status %></td>
-                    <% elsif request.status == 'rejected'%>
+                    <% elsif request.rejected? %>
                         <td class="alert-danger"><%= request.status %></td>
                     <% else %>
                         <td class="alert-info"><%= request.status %></td>
                     <% end %>
+                     <td class="alert-success"style="text-align: center" >
+                        <%= link_to approve_path(:id => request.id, :book_id => request.book.id), method: :put do %>
+                            <i class="fa fa-check alert-success" ></i>
+                        <% end %>
+                    </td>
+                    <td class="alert-danger" style="text-align: center">
+                        <%= link_to reject_path(request), method: :put do %>
+                            <i class="fa fa-times alert-danger"></i>
+                        <% end %>
+                    </td>
                 </tr>
             <% end %>
         </table>
-    </div>
-    <div class="col-lg-3">
-        <div class="well sidebar-nav">
-        <h3>All user requested</h3>
-        <ul class="nav nav-list">
-            <% @requests.each do |request| %>
-                <li><%= request.user.full_name %></li>
-            <% end %>
-        </ul>
-        </div><!--/.well -->
-    </div><!--/span-->
 
 </div>

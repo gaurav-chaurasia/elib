@@ -3,9 +3,10 @@
     <div class="col-lg-2 admin-sidebar">
         <div class=" sidebar-nav">
         <ul class="nav nav-list">
-            <li><a onclick="showRequest(event, 'all')">My Books</a></li>
-            <li><a onclick="showRequest(event, 'rejected')">Returned Books</a></li>
+            <li><a onclick="showRequest(event, 'approved')">My Books</a></li>
+            <li><a onclick="showRequest(event, 'returned')">Returned Books</a></li>
             <hr>
+            <li><a onclick="showRequest(event, 'all')">All Requests</a></li>
             <li><a onclick="showRequest(event, 'pending')">Pending Requests</a></li>
             <li><a onclick="showRequest(event, 'rejected')">Rejected Requests</a></li>
             <hr>
@@ -15,7 +16,161 @@
         </div>
     </div>
     
-    <div class= "col-xs-12 col-md-7 col-lg-9">
-       
+    <div class= "col-lg-8 col-lg-offset-3 container">
+        <h3 class="center">Dashboard</h3>
+
+        <div id="all" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Auther</th>
+                    <th>Requested At</th>
+                    <th>details</th>
+                    <th>Status</th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <tr>
+                        <td><strong> <%= count = count + 1 %> </strong></td>
+                        <td><%= request.book.isbn %></td>
+                        <td><%= request.book.title %></td>
+                        <td><%= request.book.auther %></td>
+                        <td><%= datetime_format(request.created_at)%></td>
+                        <td>
+                            <%= link_to book_path(request.book), class: "btn btn-default" do %>
+                                <i class="fa fa-info" ></i>
+                            <% end %>
+                        </td>
+                        <% if request.approved? %>
+                            <td class="alert-success"><%= request.status %></td>
+                        <% elsif request.rejected? %>
+                            <td class="alert-danger"><%= request.status %></td>
+                        <% else %>
+                            <td class="alert-info"><%= request.status %></td>
+                        <% end %>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        
+        <div id="pending" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Auther</th>
+                    <th>Requested At</th>
+                    <th>Status</th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.pending? %>
+                        <tr>
+                            <td><strong> <%= count = count + 1 %> </strong></td>
+                            <td><%= request.book.isbn %></td>
+                            <td><%= request.book.title %></td>
+                            <td><%= request.book.auther %></td>
+                            <td><%= datetime_format(request.created_at)%></td>
+                            <td class="alert-info"><%= request.status %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+
+        <div id="approved" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>Book isbd</th>
+                    <th>Book title</th>
+                    <th>Book auther</th>
+                    <th>Requested At</th>
+                    <th>Return</th>
+                    <th>status</th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.approved? %>
+                        <tr>
+                            <td><strong> <%= count = count + 1 %> </strong></td>
+                            <td><%= request.book.isbn %></td>
+                            <td><%= request.book.title %></td>
+                            <td><%= request.book.auther %></td>
+                            <td><%= datetime_format(request.created_at) %></td>
+                            <td>
+                                <%= link_to return_path(request), method: :put, class: "btn btn-default" do %>
+                                    <i class="fa fa-trash-o" ></i>
+                                <% end %>
+                            </td>
+                            <td class="alert-success"><%= request.status %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+
+        <div id="rejected" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>Book isbd</th>
+                    <th>Book title</th>
+                    <th>Book quantity</th>
+                    <th>Book auther</th>
+                    <th>Requested At</th>
+                    <th>Request</th>
+                    <th>status</th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.rejected? %>
+                        <tr>
+                            <td><strong> <%= count = count + 1 %> </strong></td>
+                            <td><%= request.book.isbn %></td>
+                            <td><%= request.book.title %></td>
+                            <td><%= request.book.quantity %></td>
+                            <td><%= request.book.auther %></td>
+                            <td><%= datetime_format(request.created_at) %></td>
+                            <td>
+                                <%= link_to req_path(request.book.id), method: :post, class: "btn btn-default" do %>
+                                    <i class="fa fa-repeat" ></i>
+                                <% end %>
+                            </td>
+                            <td class="alert-danger"><%= request.status %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+
+        <div id="returned" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>Book isbd</th>
+                    <th>Book title</th>
+                    <th>Book auther</th>
+                    <th>Returned At</th>
+                    <th>status</th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.returned? %>
+                        <tr>
+                            <td><strong> <%= count = count + 1 %> </strong></td>
+                            <td><%= request.book.isbn %></td>
+                            <td><%= request.book.title %></td>
+                            <td><%= request.book.auther %></td>
+                            <td><%= datetime_format(request.updated_at) %></td>
+                            <td class="alert-warning"><%= request.status %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
     </div>
 </div>

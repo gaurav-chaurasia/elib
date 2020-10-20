@@ -95,11 +95,7 @@
         <p>
           <%= link_to 'show', book_path(book), class:"btn btn-sm btn-primary" %>
           <%if user_signed_in? %>
-            <% if current_user.admin %>
-              <%= link_to 'All request', requests_path(:book_id => book.id), class:"btn btn-sm btn-default " %>
-            <% else %>
               <%= link_to 'request', req_path(:book_id => book.id), method: :post, class:"btn btn-sm btn-default " %>
-            <% end %>
           <% end %>
           <button class="btn btn-sm bt  n-success" type="button">
             Quantity <span class="badge"> <%= book.quantity %> </span>
@@ -119,7 +115,7 @@
   <div class="container">
     <h3>Letest books</h3>
     <div style="width: 100%; height:300px; overflow-x: auto; overflow-y: hidden;">
-        <div style="width: 4000px; display:flex;">
+        <div style="width: 6000px; display:flex;">
           <% @popular_books.each do |book| %>
               <div class="thumbnail col-lg-12 home-page-touchup" style="height:100%;"> 
                 <div class="col-md-6" style="padding:0;">

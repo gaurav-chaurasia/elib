@@ -9,6 +9,7 @@
             <hr>
             <li><a onclick="showRequest(event, 'books')">See books</a></li>
             <li><%= link_to 'Upload books', new_book_path %></li>
+            <li><a onclick="showRequest(event, 'returned')">Returned books</a></li>
             <hr>
             <li><%= link_to 'Edit user details', edit_user_registration_path(current_user), id:"droplist" %></li>
             <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
@@ -17,7 +18,7 @@
     </div>
     
     <div class= "col-lg-8 col-lg-offset-3 container">
-        <h3 class="center">Dashboard</h3>
+        <h3 class="center">Admin Dashboard</h3>
 
         <div id="all" class="tabcontent">
             <table class="table table-striped">
@@ -25,7 +26,8 @@
                     <% count = 0 %>
                     <th>#</th>
                     <th>User Name</th>
-                    <th>Book title</th>
+                    <th>ISBN</th>
+                    <th>Quantity</th>
                     <th>User Contact</th>
                     <th>Requested At</th>
                     <th>Status</th>
@@ -36,7 +38,8 @@
                     <tr>
                         <td><strong> <%= count = count + 1 %> </strong></td>
                         <td><%= request.user.full_name%></td>
-                        <td><%= request.book.title %></td>
+                        <td><%= request.book.isbn %></td>
+                        <td><%= request.book.quantity %></td>
                         <td><%= request.user.contact_number %></td>
                         <td><%= datetime_format(request.created_at)%></td>
                         <% if request.approved? %>
@@ -67,7 +70,8 @@
                     <% count = 0 %>
                     <th>#</th>
                     <th>User Name</th>
-                    <th>Book title</th>
+                    <th>ISBN</th>
+                    <th>Quantity</th>
                     <th>User Contact</th>
                     <th>Requested At</th>
                     <th>Status</th>
@@ -79,7 +83,8 @@
                         <tr>
                             <td><strong> <%= count = count + 1 %> </strong></td>
                             <td><%= request.user.full_name%></td>
-                            <td><%= request.book.title %></td>
+                            <td><%= request.book.isbn %></td>
+                            <td><%= request.book.quantity %></td>
                             <td><%= request.user.contact_number %></td>
                             <td><%= datetime_format(request.created_at) %></td>
                             <td class="alert-info"><%= request.status %></td>
@@ -105,7 +110,7 @@
                     <% count = 0 %>
                     <th>#</th>
                     <th>User Name</th>
-                    <th>Book title</th>
+                    <th>Book isbn</th>
                     <th>User Contact</th>
                     <th>Requested At</th>
                     <th>status</th>
@@ -115,7 +120,7 @@
                         <tr>
                             <td><strong> <%= count = count + 1 %> </strong></td>
                             <td><%= request.user.full_name%></td>
-                            <td><%= request.book.title %></td>
+                            <td><%= request.book.isbn %></td>
                             <td><%= request.user.contact_number %></td>
                             <td><%= datetime_format(request.created_at) %></td>
                             <td class="alert-success"><%= request.status %></td>
@@ -131,7 +136,7 @@
                     <% count = 0 %>
                     <th>#</th>
                     <th>User Name</th>
-                    <th>Book title</th>
+                    <th>Book isbn</th>
                     <th>User Contact</th>
                     <th>Requested At</th>
                     <th>status</th>
@@ -141,10 +146,36 @@
                         <tr>
                             <td><strong> <%= count = count + 1 %> </strong></td>
                             <td><%= request.user.full_name%></td>
-                            <td><%= request.book.title %></td>
+                            <td><%= request.book.isbn %></td>
                             <td><%= request.user.contact_number %></td>
                             <td><%= datetime_format(request.created_at) %></td>
                             <td class="alert-danger"><%= request.status %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+
+        <div id="returned" class="tabcontent">
+            <table class="table table-striped">
+                <tr>
+                    <% count = 0 %>
+                    <th>#</th>
+                    <th>Book ISBN</th>
+                    <th>User Name</th>
+                    <th>User Contact</th>
+                    <th>Returned At</th>
+                    <th>status</th>
+                </tr>
+                <% @requests.each do |request| %>
+                    <% if request.returned? %>
+                        <tr>
+                            <td><strong> <%= count = count + 1 %> </strong></td>
+                            <td><%= request.book.isbn %></td>
+                            <td><%= request.user.full_name %></td>
+                            <td><%= request.user.contact_number %></td>
+                            <td><%= datetime_format(request.updated_at) %></td>
+                            <td class="alert-warning"><%= request.status %></td>
                         </tr>
                     <% end %>
                 <% end %>
@@ -162,6 +193,8 @@
                     <th>Quantity</th>
                     <th>Users</th>
                     <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Show</th>
                 </tr>
                 <% @books.each do |book| %>
                     <tr>
@@ -178,6 +211,21 @@
                         <td>
                             <%= link_to edit_book_path(book), class: "btn btn-default" do %>
                                 <i class="fa fa-pencil-square-o" ></i>
+                            <% end %>
+                        </td>
+                        <td>
+                            <%= link_to book_path(book), 
+                                        method: :delete,
+                                        data:{
+                                            confirm: "Are you sure, All the requests associated with this book will also be deleted?"
+                                        }, 
+                                        class: "btn btn-default" do %>
+                                <i class="fa fa-trash-o" ></i>
+                            <% end %>
+                        </td>
+                        <td>
+                            <%= link_to book_path(book), class: "btn btn-default" do %>
+                                <i class="fa fa-info" ></i>
                             <% end %>
                         </td>
                     </tr>
