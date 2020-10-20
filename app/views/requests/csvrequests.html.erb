@@ -1,0 +1,31 @@
+<div class="container" style="padding:50px 0;">
+    <table class="table table-striped">
+        <tr>
+            <% count = 0 %>
+            <th>#</th>
+            <th>User Name</th>
+            <th>ISBN</th>
+            <th>Quantity</th>
+            <th>User Contact</th>
+            <th>Requested At</th>
+            <th>Status</th>
+        </tr>
+        <% @requests.each do |request| %>
+            <tr>
+                <td><strong> <%= count = count + 1 %> </strong></td>
+                <td><%= request.user.full_name%></td>
+                <td><%= request.book.isbn %></td>
+                <td><%= request.book.quantity %></td>
+                <td><%= request.user.contact_number %></td>
+                <td><%= datetime_format(request.created_at)%></td>
+                <% if request.approved? %>
+                    <td class="alert-success"><%= request.status %></td>
+                <% elsif request.rejected? %>
+                    <td class="alert-danger"><%= request.status %></td>
+                <% else %>
+                    <td class="alert-info"><%= request.status %></td>
+                <% end %>
+            </tr>
+        <% end %>
+    </table>
+</div>

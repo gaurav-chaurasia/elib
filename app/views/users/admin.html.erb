@@ -6,6 +6,7 @@
             <li><a onclick="showRequest(event, 'pending')">Pending Requests</a></li>
             <li><a onclick="showRequest(event, 'approved')">Approved Requests</a></li>
             <li><a onclick="showRequest(event, 'rejected')">Rejected Requests</a></li>
+            <li><%= link_to 'Download requests', csvrequests_path(format: 'csv') %></li>
             <hr>
             <li><a onclick="showRequest(event, 'books')">See books</a></li>
             <li><%= link_to 'Upload books', new_book_path %></li>

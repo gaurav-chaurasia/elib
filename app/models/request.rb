@@ -16,6 +16,18 @@ class Request < ApplicationRecord
         end
     end
 
+    def self.to_csv
+        require 'csv'
+        attributes = %w[user_id user_name book_id book_title status created_at updated_at]
+
+        CSV.generate do |csv|
+            csv << attributes
+            all.each do |request|
+                csv << [request.user_id, request.user.full_name, request.book_id, request.book.title, request.status, request.created_at, request.updated_at]
+            end
+        end
+    end
+
     def self.validateAndCreateRequest(user_id, book_id)
         request = Request.where(user_id: user_id, book_id: book_id).order(created_at: :desc).first
         if request and (request.approved? || request.pending?)
