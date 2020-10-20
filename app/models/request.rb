@@ -17,40 +17,62 @@ class Request < ApplicationRecord
     end
 
     def self.validateAndCreateRequest(user_id, book_id)
-        
         request = Request.where(user_id: user_id, book_id: book_id).first
         if request and (request.approved? || request.pending?)
             return nil
-        end
-
-        book = Book.find(book_id)
-        if book && book.quantity > 0
-            book.quantity -= 1
+        else
             request = Request.new(user_id: user_id, book_id: book_id)
-            if book.save and request.save
+            if request.save
                 return request
+            end
+        end
+    end
+
+    def self.approveRequest(id)
+        request = Request.find(id)
+        book = Book.find(request.book.id)
+        
+        if book && (book.quantity > 0) && request
+            if request.pending?
+                request.status = 'approved'
+                book.quantity -= 1
+                if book.save && request.save 
+                    return 'success'
+                else
+                    return nil
+                end
             end
         end
         return nil
     end
 
-    def self.approveRequest(id)
+    def self.rejectRequest(id)
+        
         request = Request.find(id)
-        request.status = 'approved'
-        if request.save
-            return 'success'
-        else
-            nil
+        
+        if request.pending?
+            request.status = 'rejected'
+            if request.save
+                return 'success'
+            else
+                return nil
+            end
         end
     end
 
-    def self.rejectRequest(id)
+    def self.returnBook(id)
+        
         request = Request.find(id)
-        request.status = 'rejected'
-        if request.save
-            return 'success'
-        else
-            nil
+        book = Book.find(request.book.id)
+
+        if request.approved?
+            request.status = 'returned'
+            book.quantity += 1
+            if book.save && request.save 
+                return 'success'
+            end
         end
+        return nil
     end
+    
 end

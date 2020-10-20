@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post '/requests/:book_id', to: 'requests#create', as: 'req'
   put '/request/approve/:id', to: 'requests#approve', as: 'approve'
   put '/request/reject/:id', to: 'requests#reject', as: 'reject'
+  put '/request/return/:id', to: 'requests#return', as: 'return'
 
 
   resources :users, only: [:index, :show]

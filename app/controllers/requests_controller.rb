@@ -26,26 +26,34 @@ class RequestsController < ApplicationController
     # because of lake of time implimenting in easy and non conventional way
     def approve
         result = Request.approveRequest(params[:id])
-        respond_to do |format|
-            if result
-                format.html { redirect_to '#', notice: 'Request was successfully Approved.' }
-            else
-                format.html { redirect_to '#', notice: 'Something went wrong request not Approved!' } 
-            end
+        if result
+            flash[:info] = "Request was successfully Approved."
+        else
+            flash[:warning] = ['Something went wrong request not Approved!']
+            flash[:warning] << 'book might be out of stock or rejected'
         end
+        redirect_to admin_dashboard_path(current_user)
     end
 
     def reject
-        result = Request.rejectRequest(params[:id])
-        respond_to do |format|
-            if result
-                format.html { redirect_to '#', notice: 'Request was successfully Rejected.' }
-            else
-                format.html { redirect_to '#', notice: 'Something went wrong request not Rejected!' } 
-            end
+        result = Request.rejectRequest(params[:id])        
+        if result
+            flash[:info] = "Request was successfully Rejected."
+        else
+            flash[:danger] = 'Something went wrong request not Rejected!'  
         end
+        redirect_to admin_dashboard_path(current_user)
     end
 
+    def return
+        result = Request.returnBook(params[:id])
+        if result
+            flash[:success] = "Book is returned successfully!"
+        else
+            flash[:danger] = 'Something went wrong book not returned!'  
+        end
+        redirect_to dashboard_path(current_user)
+    end
 
 
 
