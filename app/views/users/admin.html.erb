@@ -2,16 +2,17 @@
     <div class="col-lg-2 admin-sidebar">
         <div class=" sidebar-nav">
         <ul class="nav nav-list">
-            <li><a onclick="showRequest(event, 'all')">All Requests</a></li>
-            <li><a onclick="showRequest(event, 'pending')">Pending Requests</a></li>
-            <li><a onclick="showRequest(event, 'approved')">Approved Requests</a></li>
-            <li><a onclick="showRequest(event, 'rejected')">Rejected Requests</a></li>
+            <li class="active"><a data-toggle="tab" href="#all">All Requests</a></li>
+            <li><a data-toggle="tab" href="#pending">Pending Requests</a></li>
+            <li><a data-toggle="tab" href="#approved">Approved Requests</a></li>
+            <li><a data-toggle="tab" href="#rejected">Rejected Requests</a></li>
             <li><%= link_to 'Download requests', csvrequests_path(format: 'csv') %></li>
             <hr>
-            <li><a onclick="showRequest(event, 'books')">See books</a></li>
+            <li><a data-toggle="tab" href="#books">See books</a></li>
             <li><%= link_to 'Upload books', new_book_path %></li>
-            <li><a onclick="showRequest(event, 'returned')">Returned books</a></li>
+            <li><a data-toggle="tab" href="#returned">Returned books</a></li>
             <hr>
+            <li><%= link_to 'Personal Dashboard', dashboard_path(current_user) %></li>
             <li><%= link_to 'Your Details', user_path(current_user) %></li>
             <li><%= link_to 'Edit user details', edit_user_registration_path(current_user), id:"droplist" %></li>
             <li><%= link_to "Delete account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete, id: "droplist" %></li>
@@ -19,10 +20,10 @@
         </div>
     </div>
     
-    <div class= "col-lg-8 col-lg-offset-3 container">
+    <div class= "col-lg-8 col-lg-offset-3 container tab-content">
         <h3 class="center">Admin Dashboard</h3>
 
-        <div id="all" class="tabcontent">
+        <div id="all" class="tab-pane fade in active">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -66,7 +67,7 @@
             </table>
         </div>
         
-        <div id="pending" class="tabcontent">
+        <div id="pending" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -106,7 +107,7 @@
             </table>
         </div>
 
-        <div id="approved" class="tabcontent">
+        <div id="approved" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -132,7 +133,7 @@
             </table>
         </div>
 
-        <div id="rejected" class="tabcontent">
+        <div id="rejected" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -158,7 +159,7 @@
             </table>
         </div>
 
-        <div id="returned" class="tabcontent">
+        <div id="returned" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -184,7 +185,7 @@
             </table>
         </div>
 
-        <div id="books" class="tabcontent">
+        <div id="books" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>

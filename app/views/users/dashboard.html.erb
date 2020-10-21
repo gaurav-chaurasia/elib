@@ -2,12 +2,12 @@
     <div class="col-lg-2 admin-sidebar">
         <div class=" sidebar-nav">
         <ul class="nav nav-list">
-            <li><a onclick="showRequest(event, 'approved')">My Books</a></li>
-            <li><a onclick="showRequest(event, 'returned')">Returned Books</a></li>
+            <li class="active"><a data-toggle="tab" href="#approved">My Books</a></li>
+            <li><a data-toggle="tab" href="#returned">Returned Books</a></li>
             <hr>
-            <li><a onclick="showRequest(event, 'all')">All Requests</a></li>
-            <li><a onclick="showRequest(event, 'pending')">Pending Requests</a></li>
-            <li><a onclick="showRequest(event, 'rejected')">Rejected Requests</a></li>
+            <li><a data-toggle="tab" href="#all">All Requests</a></li>
+            <li><a data-toggle="tab" href="#pending">Pending Requests</a></li>
+            <li><a data-toggle="tab" href="#rejected">Rejected Requests</a></li>
             <hr>
             <li><%= link_to 'Your Details', user_path(current_user) %></li>
             <li><%= link_to 'Edit user details', edit_user_registration_path(current_user), id:"droplist" %></li>
@@ -16,10 +16,10 @@
         </div>
     </div>
     
-    <div class= "col-lg-8 col-lg-offset-3 container">
+    <div class= "col-lg-8 col-lg-offset-3 container tab-content">
         <h3 class="center">Dashboard</h3>
 
-        <div id="all" class="tabcontent">
+        <div id="all" class="tab-pane fade in active">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -55,7 +55,7 @@
             </table>
         </div>
         
-        <div id="pending" class="tabcontent">
+        <div id="pending" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -81,7 +81,7 @@
             </table>
         </div>
 
-        <div id="approved" class="tabcontent">
+        <div id="approved" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -113,7 +113,7 @@
             </table>
         </div>
 
-        <div id="rejected" class="tabcontent">
+        <div id="rejected" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
@@ -147,7 +147,7 @@
             </table>
         </div>
 
-        <div id="returned" class="tabcontent">
+        <div id="returned" class="tab-pane fade">
             <table class="table table-striped">
                 <tr>
                     <% count = 0 %>
