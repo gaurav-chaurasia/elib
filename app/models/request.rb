@@ -7,7 +7,7 @@ class Request < ApplicationRecord
     enum status: ALL_STATUS.zip(ALL_STATUS).to_h
 
     # validating one user can not create many request for same book 
-    def self.validateBookRequest(user_id, book_id)
+    def self.validate_book_request(user_id, book_id)
         request = Request.where(user_id: user_id, book_id: book_id).first
         if request and (request.approved? || request.pending?)
             return false
@@ -28,7 +28,7 @@ class Request < ApplicationRecord
         end
     end
 
-    def self.validateAndCreateRequest(user_id, book_id)
+    def self.validate_and_create_request(user_id, book_id)
         request = Request.where(user_id: user_id, book_id: book_id).order(created_at: :desc).first
         if request and (request.approved? || request.pending?)
             return nil
@@ -40,15 +40,15 @@ class Request < ApplicationRecord
         end
     end
 
-    def self.approveRequest(id)
+    # only pending requests can be approved
+    def self.approve_request(id)
         request = Request.find(id)
-        book = Book.find(request.book.id)
         
-        if book && (book.quantity > 0) && request
+        if request.book.quantity > 0 && request
             if request.pending?
-                request.status = 'approved'
-                book.quantity -= 1
-                if book.save && request.save 
+                request.update_status('approved')
+                request.process_book('dec')
+                if request.book.save && request.save 
                     return 'success'
                 else
                     return nil
@@ -58,12 +58,13 @@ class Request < ApplicationRecord
         return nil
     end
 
-    def self.rejectRequest(id)
+    # only pendding books can be rejected not the approved or returned
+    def self.reject_request(id)
         
         request = Request.find(id)
         
         if request.pending?
-            request.status = 'rejected'
+            request.update_status('rejected')
             if request.save
                 return 'success'
             else
@@ -72,19 +73,34 @@ class Request < ApplicationRecord
         end
     end
 
-    def self.returnBook(id)
+    # only already approved books can be return to lib
+    def self.return_book(id)
         
         request = Request.find(id)
-        book = Book.find(request.book.id)
 
         if request.approved?
-            request.status = 'returned'
-            book.quantity += 1
-            if book.save && request.save 
+            request.update_status('returned')
+            request.process_book('inc')
+            if request.book.save && request.save 
                 return 'success'
             end
         end
         return nil
     end
-    
+
+    # private
+
+    def update_status(status)
+        self.status = status
+    end
+
+    def process_book(operation)
+        if operation == 'inc'
+            self.book.quantity += 1
+        elsif operation == 'dec'
+            self.book.quantity -= 1
+        else 
+            nil
+        end
+    end
 end

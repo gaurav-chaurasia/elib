@@ -49,8 +49,10 @@
                             <td class="alert-success"><%= request.status %></td>
                         <% elsif request.rejected? %>
                             <td class="alert-danger"><%= request.status %></td>
-                        <% else %>
+                        <% elsif request.pending? %>
                             <td class="alert-info"><%= request.status %></td>
+                        <% else %>
+                            <td class="alert-warning"><%= request.status %></td>
                         <% end %>
                         <td class="alert-success"style="text-align: center" >
                             <%= link_to approve_path(request), method: :put do %>

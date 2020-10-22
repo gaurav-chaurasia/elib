@@ -21,7 +21,7 @@ class RequestsController < ApplicationController
     # Requests: POST
     # create request for any specific book /requests/:book_id
     def create
-        request = Request.validateAndCreateRequest(current_user.id, params[:book_id])
+        request = Request.validate_and_create_request(current_user.id, params[:book_id])
         respond_to do |format|
             if request
                 format.html { redirect_to root_path, notice: 'Request was successfully created.' }
@@ -38,7 +38,7 @@ class RequestsController < ApplicationController
     # approve, reject and return => REQUEST: PUT
     # because of lake of time implimenting in easy and non conventional way
     def approve
-        result = Request.approveRequest(params[:id])
+        result = Request.approve_request(params[:id])
         if result
             flash[:info] = "Request was successfully Approved."
         else
@@ -51,7 +51,7 @@ class RequestsController < ApplicationController
     end
 
     def reject
-        result = Request.rejectRequest(params[:id])        
+        result = Request.reject_request(params[:id])        
         if result
             flash[:info] = "Request was successfully Rejected."
         else
@@ -61,7 +61,7 @@ class RequestsController < ApplicationController
     end
 
     def return
-        result = Request.returnBook(params[:id])
+        result = Request.return_book(params[:id])
         if result
             flash[:success] = "Book is returned successfully!"
         else
