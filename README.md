@@ -15,10 +15,10 @@
 - Clone the Repo:
 
 ```
-        $ git clone https://github.com/gaurav-chaurasia/IRIS_181CV155_1_Ruby-On-Rails.git
+        $ git clone https://github.com/gaurav-chaurasia/elib.git
 ```
 
-- Change directory into the folder named IRIS_181CV155_1_Ruby-On-Rails
+- Change directory into the folder named elib
 - Install all the gems
 
 ```
