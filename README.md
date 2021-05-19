@@ -1,33 +1,31 @@
 # ELIB
-
 > Note: All steps were performed using on Windows 10.
 
-- [Screen Shots]()
 
-  - [admin dashboard](docs/admin.md)
-  - [user dashboard](docs/user.md)
-  - [general](docs/general.md)
+- [SCREENSHOTS]()
+  - [ADMIN DASHBOARD](docs/admin.md)
+  - [USER DASHBOARD](docs/user.md)
+  - [GENERAL](docs/general.md)
+- [RUN LOCALLY](docs/install.md)
 
-- [Run Locally](docs/install.md)
 
 ### DONE THE INSTALLATIONS
-
 - Clone the Repo:
 
-```
+```py
         $ git clone https://github.com/gaurav-chaurasia/elib.git
 ```
 
 - Change directory into the folder named elib
 - Install all the gems
 
-```
+```py
         $ bundle install
 ```
 
 - Make migrations, Seed data into the database and Run the server
 
-```
+```py
         $ rails db:migrate
         $ rails db:seed
         $ rails server
@@ -37,14 +35,13 @@
 
 - bootstrap-sass 3 used for styling many parts of the app and after adding small changes final could build beautiful UI
 
-```
+```py
        $ gem 'twitter-bootstrap-rails'
        $ gem 'devise-bootstrap-views'
 
 ```
 
-## List of all implemented features,
-
+### Features
 - [x] Multiple Image upload capability
 - [x] seperate dashboard for normal and admin user
 - [x] "Active storage used for image storing feature"
@@ -63,11 +60,3 @@
 - [ ] admin can download request list in any format of his/her choise
 - [ ] improve view
 
-> some links
-
-`https://stackoverflow.com/`  
-`https://www.youtube.com/`  
-`https://guides.rubyonrails.org/`  
-`https://github.com/twbs/bootstrap-sass`  
-`https://github.com/heartcombo/devise`  
-`https://github.com/bokmann/font-awesome-rails`
